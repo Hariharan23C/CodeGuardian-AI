@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeGuardian AI — Understand every line</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">&lt;/&gt;</span>
+    <span class="brand-name">CodeGuardian <em>AI</em></span>
+  </div>
+  <p class="brand-tag">Paste code. Understand every line, not just what to submit.</p>
+</header>
+
+<main class="wrap">
+
+  <section class="input-panel">
+    <label for="codeInput">Paste your code</label>
+    <textarea id="codeInput" placeholder="Paste any code here — Python, JS, Java, C++, anything..." spellcheck="false"></textarea>
+
+    <div class="level-row">
+      <span class="level-label">Explain it like I'm a...</span>
+      <div class="level-options" id="levelOptions">
+        <button class="level-btn" data-level="child">Total beginner (use analogies)</button>
+        <button class="level-btn active" data-level="beginner">New coder</button>
+        <button class="level-btn" data-level="intermediate">CS student</button>
+        <button class="level-btn" data-level="advanced">Interview prep</button>
+      </div>
+    </div>
+
+    <button id="analyzeBtn" class="analyze-btn">Analyze Code</button>
+    <p class="error-msg" id="errorMsg" hidden></p>
+  </section>
+
+  <section class="results" id="results" hidden>
+
+    <div class="result-card summary-card">
+      <span class="tag" id="langTag">—</span>
+      <p id="summaryText"></p>
+    </div>
+
+    <div class="result-card">
+      <h2>📖 Line-by-line</h2>
+      <div id="lineByLine" class="line-list"></div>
+    </div>
+
+    <div class="result-card">
+      <h2>⏱️ Complexity</h2>
+      <div class="complexity-row">
+        <div class="complexity-box"><span class="complexity-label">Time</span><span class="complexity-val" id="timeComplexity">—</span></div>
+        <div class="complexity-box"><span class="complexity-label">Space</span><span class="complexity-val" id="spaceComplexity">—</span></div>
+      </div>
+      <p id="complexityExplanation"></p>
+    </div>
+
+    <div class="result-card">
+      <h2>🐛 Bugs &amp; issues</h2>
+      <div id="bugsList" class="bugs-list"></div>
+    </div>
+
+    <div class="result-card">
+      <h2>💡 Suggestions</h2>
+      <ul id="suggestionsList" class="suggestions-list"></ul>
+    </div>
+
+    <div class="result-card">
+      <h2>🎯 Interview questions this code could trigger</h2>
+      <div id="interviewList" class="interview-list"></div>
+    </div>
+
+    <div class="result-card">
+      <h2>🔀 Flowchart</h2>
+      <div class="mermaid" id="flowchartBox">flowchart TD\nA[Loading...]</div>
+    </div>
+
+  </section>
+
+</main>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false, theme: "dark" });
+  window.__mermaid = mermaid;
+</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
