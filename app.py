@@ -67,12 +67,19 @@ def analyze():
 
     prompt = build_prompt(code, level)
 
-    try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        response = model.generate_content(prompt)
-        raw_text = response.text
-    except Exception as e:
-        return jsonify({"error": f"AI request failed: {str(e)}"}), 502
+raw_text = None
+    last_error = None
+    for candidate in MODEL_CANDIDATES:
+        try:
+            model = genai.GenerativeModel(candidate)
+            response = model.generate_content(prompt)
+            raw_text = response.text
+            break
+        except Exception as e:
+            last_error = e
+            continue
+    if raw_text is None:
+        return jsonify({"error": f"AI request failed on all models: {str(last_error)}"}), 502
 
     try:
         result = _extract_json(raw_text)
