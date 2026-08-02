@@ -24,7 +24,7 @@ from prompts import build_prompt
 load_dotenv()
 
 API_KEY = os.environ.get("GEMINI_API_KEY", "")
-MODEL_NAME = "gemini-1.5-flash"
+MODEL_NAME = "gemini-2.5-flash"
 
 app = Flask(__name__)
 
