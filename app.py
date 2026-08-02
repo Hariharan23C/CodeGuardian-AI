@@ -67,7 +67,7 @@ def analyze():
 
     prompt = build_prompt(code, level)
 
-raw_text = None
+    raw_text = None
     last_error = None
     for candidate in MODEL_CANDIDATES:
         try:
@@ -78,6 +78,7 @@ raw_text = None
         except Exception as e:
             last_error = e
             continue
+
     if raw_text is None:
         return jsonify({"error": f"AI request failed on all models: {str(last_error)}"}), 502
 
